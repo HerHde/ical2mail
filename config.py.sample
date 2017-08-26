@@ -1,0 +1,24 @@
+MAIL_FROM = "events@example.com"
+MAIL_TO = "info@example.com"
+MAIL_SUBJECT = "[Events] Termine vom {{ date_min.date }} bis {{ date_max.date }}" # This is parsed as a Jinja2-template.
+
+ICAL_TZ = "Europe/Berlin" # Timezone, like "Europe/Dublin", "Asia/Seoul", "Japan" or "America/Los_Angeles".
+ICAL_URLS = [
+    "https://example.com/calendar.ics",
+    "https://example.com/events.ics"
+]
+
+DAYS_PREV = 0 # How many days from the past should be included?
+DAYS_NEXT = 3 # And how many future days?
+
+SMTP_HOST = "mail.example.com"
+SMTP_PORT = 587
+SMTP_USER = "username"
+SMTP_PASS = "password"
+
+# These formats are parsed with strftime().
+FORMAT_DATE = "%Y-%m-%d"
+FORMAT_TIME = "%H:%M"
+FORMAT_DATETIME = FORMAT_DATE + " " + FORMAT_TIME
+
+TEMPLATE_FILE = "plain.jinja" # Template file in templates/

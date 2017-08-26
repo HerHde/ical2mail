@@ -1,0 +1,33 @@
+Termine vom {{ date_min.date }} bis {{ date_max.date }}:
+
+{% for day, list in events | groupby("start.date") %}
+   {{ day }}
+    {% for event in list %}
+        {{ event.start.time }}: {{ event.summary }}
+            {% if day == event.end.date %}
+               Ende: {{ event.end.time }}
+            {% else %}
+               Ende: {{ event.end.datetime }}
+            {% endif %}
+        {% if event.location %}
+               Ort: {{ event.location }}
+        {% endif %}
+        {% if event.url %}
+               Link: {{ event.url }}
+        {% endif %}
+        {% if event.organizer %}
+               Organisator: {{ event.organizer }}
+        {% endif %}
+        {% if event.categories %}
+            {% if event.categories is string  %}
+               Kategorie: {{ event.categories }}
+            {% else %}
+               Kategorien: {{ event.categories|join(', ')|wordwrap(width=80-29, wrapstring="\n                           ") }}
+            {% endif %}
+        {% endif %}
+        {% if event.description %}
+               Beschreibung: {{ event.description|wordwrap(width=80-29, wrapstring="\n                             ") }}
+        {% endif %}
+
+    {% endfor %}
+{% endfor %}
