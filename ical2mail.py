@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+""" A Python3 script to fetch iCalendar/ical/ics-feeds from the web and send an email
+with upcoming events."""
 import urllib.request
 from email.message import Message
 import smtplib

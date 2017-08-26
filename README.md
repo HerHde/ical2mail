@@ -19,15 +19,15 @@ Download this repository, create a new virtualenv and configure the script.
 Now copy/rename the `config.py.sample` to `config.py`, open it in your preferred editor and make adjustments, at least you need to configure `MAIL_FROM`, `MAIL_TO`, `ICAL_URLS` and the `SMTP_*` variables.
 
 ## Usage
-You need to enter the virtualenv every time you are in a new shell session. Inside the repository's directory run 
+You need to enter the `virtualenv` every time you are in a new shell session. Inside the repository's directory run
 
     source venv/bin/activate
     python ical2mail.py
 
-If nothing appears, everything went well!
+If no text appears, everything went well!
 
 ## Modification
-To get a different formatted, you can use [Jinja2-templates](http://jinja.pocoo.org/docs/latest/templates/). Modyfy the default [template](templates/plain.jinja) or create a new one in the `templates/` folder and update the config.
+To get a different formatted output, you can use [Jinja2-templates](http://jinja.pocoo.org/docs/latest/templates/). Modify the default [template](templates/plain.jinja) or create a new one in the `templates/` folder and update the config.
 
 ## Contributors
 This script is inspired by [Cord Beermann](https://cord.de/cord-beermann)'s [Calendar2Mail](https://cord.de/selfmade) script, which is written in Pearl and served my purposes well for a long time. Thank you Cord!
@@ -36,4 +36,4 @@ I heavily used [Severin "tiefpunkt" Schols](http://tiefpunkt.com/)'s [ical2email
 
 This script is written and maintained by Henrik "HerHde" Hüttemann.
 ## License
-This work is licensed under the [GPLv3](LICENSE).
+This work is licensed under the [GNU GPLv3](LICENSE).
