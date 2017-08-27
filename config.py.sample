@@ -1,5 +1,5 @@
 MAIL_FROM = "events@example.com"
-MAIL_TO = "info@example.com"
+MAIL_TO = "info@example.com" # For multiple recipients write them as a ["list", "of", "addresses"].
 MAIL_SUBJECT = "[Events] Termine vom {{ date_min.date }} bis {{ date_max.date }}" # This is parsed as a Jinja2-template.
 
 SMTP_HOST = "mail.example.com"

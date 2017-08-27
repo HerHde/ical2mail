@@ -221,19 +221,25 @@ def generate_output(event_list):
 
 def send_mail(content):
     """Send out an email."""
-    msg = Message()
-    msg.set_payload(content[0], "utf-8")
-    msg["Subject"] = content[1]
-    msg["From"] = config.MAIL_FROM
-    msg["To"] = config.MAIL_TO
+    if isinstance(config.MAIL_TO, list):
+        mail_to_list = config.MAIL_TO
+    else:
+        mail_to_list = [config.MAIL_TO]
 
-    server = smtplib.SMTP(config.SMTP_HOST, config.SMTP_PORT)
-    server.ehlo()
-    server.starttls()
-    server.ehlo()
-    server.login(config.SMTP_USER, config.SMTP_PASS)
-    server.sendmail(config.MAIL_FROM, config.MAIL_TO, msg.as_string())
-    server.quit()
+    for mail_to in mail_to_list:
+        msg = Message()
+        msg.set_payload(content[0], "utf-8")
+        msg["Subject"] = content[1]
+        msg["From"] = config.MAIL_FROM
+        msg["To"] = mail_to
+
+        server = smtplib.SMTP(config.SMTP_HOST, config.SMTP_PORT)
+        server.ehlo()
+        server.starttls()
+        server.ehlo()
+        server.login(config.SMTP_USER, config.SMTP_PASS)
+        server.sendmail(config.MAIL_FROM, mail_to, msg.as_string())
+        server.quit()
 
 def main():
     events = []
