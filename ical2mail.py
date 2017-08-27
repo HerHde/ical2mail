@@ -78,8 +78,10 @@ def parse_ics(ics):
                 ics["password"]
             )
         )
+        ics_url = ics["url"]
     else:
         response = requests.get(ics)
+        ics_url = ics
 
     cal = Calendar.from_ical(response.text)
     event_list = []
@@ -102,7 +104,8 @@ def parse_ics(ics):
                         event,
                         dtstart_rec,
                         dtstart_rec + duration,
-                        duration
+                        duration,
+                        ics_url
                     )
                 )
         elif dtstart >= DATE_MIN and dtstart < DATE_MAX:
@@ -111,7 +114,8 @@ def parse_ics(ics):
                     event,
                     dtstart,
                     to_tz_datetime(event.get('dtend').dt, True),
-                    duration
+                    duration,
+                    ics_url
                 )
             )
     return remove_modified_recurrence(event_list)
@@ -161,6 +165,7 @@ def simplify_events(event_list):
         # Duration ignored, only parsing dtend
         new_event["dtend"] = to_tz_datetime(item[0].get("dtend").dt)
         new_event["duration"] = item[3]
+        new_event["ics_url"] = item[4]
         # TODO Not properly parsed but pasted
         for prop in EVENT_PROPERTIES["many"]:
             if prop in item[0]:
