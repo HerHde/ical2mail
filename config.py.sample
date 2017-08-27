@@ -23,3 +23,5 @@ FORMAT_TIME = "%H:%M"
 FORMAT_DATETIME = FORMAT_DATE + " " + FORMAT_TIME
 
 TEMPLATE_FILE = "plain.jinja" # Template file in templates/
+
+DRYRUN = False # Print to console instead sending an email.

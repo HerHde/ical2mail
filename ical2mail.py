@@ -238,11 +238,12 @@ def main():
     events = sorted(events, key=lambda event: event[1])
     output_text = generate_output(events)
 
-    send_mail(output_text)
-
-    # print("TITLE: " + output_text[1])
-    # print("----------------------------------------")
-    # print(output_text[0].replace(' ', ' '))
+    if config.DRYRUN:
+        print("TITLE: " + output_text[1])
+        print("----------------------------------------")
+        print(output_text[0].replace(' ', ' '))
+    else:
+        send_mail(output_text)
 
 if __name__ == "__main__":
     main()
