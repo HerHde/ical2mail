@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """ A Python3 script to fetch iCalendar/ical/ics-feeds from the web and send an email
 with upcoming events."""
-import urllib.request
 from email.message import Message
 import smtplib
 from datetime import datetime, timedelta, date
 from pytz import timezone
 from icalendar import Calendar, vDDDTypes
 from dateutil import rrule
+import requests
 import jinja2
 import config
 
@@ -59,7 +59,7 @@ def format_date(adate):
         "time": to_tz_datetime(adate).strftime(config.FORMAT_TIME)
     }
 
-def parse_ics(ics_url):
+def parse_ics(ics):
     """Parse an ics-file and return the vevents as a list of tuples.
 
         Returns:
@@ -70,8 +70,18 @@ def parse_ics(ics_url):
                 1. the duration as a timedelta
                 of an event.
     """
-    ics = urllib.request.urlopen(ics_url).read()
-    cal = Calendar.from_ical(ics)
+    if isinstance(ics, dict):
+        response = requests.get(
+            ics["url"],
+            auth=requests.auth.HTTPBasicAuth(
+                ics["username"],
+                ics["password"]
+            )
+        )
+    else:
+        response = requests.get(ics)
+
+    cal = Calendar.from_ical(response.text)
     event_list = []
 
     for event in cal.walk('vevent'):
