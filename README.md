@@ -26,6 +26,18 @@ You need to enter the `virtualenv` every time you are in a new shell session. In
 
 If no text appears, everything went well!
 
+### Cronjobs
+To run this script periodically, you need to set up a cronjob. To send a, lets say weekly mail, listing the appointment for the next seven days, set `DAYS_NEXT = 7` in your `config.py` and install your cronjob:
+
+    pwd # returns the path of your current directory, assuming that you are in the ical2mail dir
+    crontab -e
+
+Insert the following at the end of the file:
+
+    0 0 * * 1 <output of pwd>/run_cron.sh
+
+Where you replace `<output of pwd>`. This runs the script every monday at 00:00
+
 ## Modification
 To get a different formatted output, you can use [Jinja2-templates](http://jinja.pocoo.org/docs/latest/templates/). Modify the default [template](templates/plain.jinja) or create a new one in the `templates/` folder and update the config.
 
@@ -35,5 +47,6 @@ This script is inspired by [Cord Beermann](https://cord.de/cord-beermann)'s [Cal
 I heavily used [Severin "tiefpunkt" Schols](http://tiefpunkt.com/)'s [ical2email](https://github.com/tiefpunkt/ical2email) as a base, a Python 2 script, which does slightly the same as this script, but in a different manner. Thank you tiefpunkt! Without your script I would have procrastinated the implementation of mine a long time.
 
 This script is written and maintained by Henrik "HerHde" Hüttemann.
+
 ## License
 This work is licensed under the [GNU GPLv3](LICENSE).
